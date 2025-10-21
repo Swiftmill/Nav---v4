@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; script-src 'self'; frame-src 'self' https: http: data:;" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GX Browser</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">GX</div>
+      <nav class="sidebar-nav">
+        <button class="sidebar-btn active" data-target="home">
+          <img src="assets/icons/home.svg" alt="Accueil" />
+          <span>Accueil</span>
+        </button>
+        <button class="sidebar-btn" data-target="bookmarks">
+          <img src="assets/icons/bookmark.svg" alt="Favoris" />
+          <span>Favoris</span>
+        </button>
+        <button class="sidebar-btn" data-target="history">
+          <img src="assets/icons/history.svg" alt="Historique" />
+          <span>Historique</span>
+        </button>
+        <button class="sidebar-btn" data-target="settings">
+          <img src="assets/icons/settings.svg" alt="Paramètres" />
+          <span>Paramètres</span>
+        </button>
+      </nav>
+    </aside>
+    <main class="main-view">
+      <header class="toolbar">
+        <div class="nav-buttons">
+          <button id="backBtn" class="tool-btn" title="Retour">
+            <img src="assets/icons/back.svg" alt="Retour" />
+          </button>
+          <button id="forwardBtn" class="tool-btn" title="Avancer">
+            <img src="assets/icons/forward.svg" alt="Avancer" />
+          </button>
+          <button id="reloadBtn" class="tool-btn" title="Actualiser">
+            <img src="assets/icons/reload.svg" alt="Actualiser" />
+          </button>
+          <button id="homeBtn" class="tool-btn" title="Accueil">
+            <img src="assets/icons/home.svg" alt="Accueil" />
+          </button>
+        </div>
+        <div class="address-wrapper">
+          <input type="text" id="addressBar" placeholder="Rechercher ou entrer une URL" autocomplete="off" />
+          <button id="goBtn" class="tool-btn go" title="Aller">
+            <img src="assets/icons/go.svg" alt="Aller" />
+          </button>
+          <button id="favoriteBtn" class="tool-btn favorite" title="Ajouter aux favoris">
+            <img src="assets/icons/star.svg" alt="Favori" />
+          </button>
+        </div>
+        <div class="status" id="statusIndicator">Prêt</div>
+      </header>
+      <section class="content">
+        <div class="home" id="homeView">
+          <div class="home-background" id="homeBackground"></div>
+          <div class="home-overlay">
+            <h1>GX Browser</h1>
+            <p>Navigation néon, rapide et personnalisable.</p>
+            <div class="quick-actions">
+              <button class="quick-btn" data-url="https://duckduckgo.com">DuckDuckGo</button>
+              <button class="quick-btn" data-url="https://www.wikipedia.org">Wikipedia</button>
+              <button class="quick-btn" data-url="https://github.com">GitHub</button>
+            </div>
+            <div class="mini-player" id="miniPlayer">
+              <div class="player-info">
+                <span class="player-title">Synthé néon</span>
+                <span class="player-status" id="playerStatus">⏸︎</span>
+              </div>
+              <button class="quick-btn" id="playerToggle">Lecture</button>
+            </div>
+          </div>
+        </div>
+        <webview id="browserView" partition="persist:gx" allowpopups></webview>
+        <section class="panel" id="bookmarksPanel">
+          <header>
+            <h2>Favoris</h2>
+            <button id="clearBookmarks" class="panel-action">Vider</button>
+          </header>
+          <ul id="bookmarksList" class="panel-list"></ul>
+        </section>
+        <section class="panel" id="historyPanel">
+          <header>
+            <h2>Historique</h2>
+            <button id="clearHistory" class="panel-action">Effacer</button>
+          </header>
+          <ul id="historyList" class="panel-list"></ul>
+        </section>
+        <section class="panel" id="settingsPanel">
+          <header>
+            <h2>Paramètres</h2>
+          </header>
+          <form id="settingsForm">
+            <label>
+              Accent
+              <input type="color" id="accentColor" name="accent" />
+            </label>
+            <label>
+              Transparence
+              <input type="range" id="transparency" name="transparency" min="0.5" max="1" step="0.01" />
+            </label>
+            <label>
+              Fond personnalisé (image ou vidéo)
+              <input type="text" id="backgroundPath" name="background" placeholder="assets/backgrounds/mon-fond.png" />
+            </label>
+            <div class="settings-actions">
+              <button type="submit" class="quick-btn">Enregistrer</button>
+              <button type="button" id="resetSettings" class="quick-btn ghost">Réinitialiser</button>
+            </div>
+          </form>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="renderer.js"></script>
+</body>
+</html>
